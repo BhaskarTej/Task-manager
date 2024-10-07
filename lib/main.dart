@@ -56,3 +56,69 @@ class _TaskListScreenState extends State<TaskListScreen> {
       _tasks.removeAt(index);
     });
   }
+   @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Task Manager'),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          children: [
+            // Text input and Add button
+            Row(
+              children: [
+                Expanded(
+                  child: TextField(
+                    controller: _taskController,
+                    decoration: InputDecoration(
+                      hintText: 'Enter task name',
+                    ),
+                  ),
+                ),
+                SizedBox(width: 10),
+                ElevatedButton(
+                  onPressed: _addTask,
+                  child: Text('Add'),
+                ),
+              ],
+            ),
+            SizedBox(height: 20),
+            // Task list display
+            Expanded(
+              child: ListView.builder(
+                itemCount: _tasks.length,
+                itemBuilder: (context, index) {
+                  final task = _tasks[index];
+                  return ListTile(
+                    leading: Checkbox(
+                      value: task.isCompleted,
+                      onChanged: (value) {
+                        _toggleTaskCompletion(index);
+                      },
+                    ),
+                    title: Text(
+                      task.name,
+                      style: TextStyle(
+                        decoration: task.isCompleted
+                            ? TextDecoration.lineThrough
+                            : TextDecoration.none,
+                      ),
+                    ),
+                    trailing: IconButton(
+                      icon: Icon(Icons.delete, color: Colors.red),
+                      onPressed: () {
+                        _deleteTask(index);
+                      },
+                    ),
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
