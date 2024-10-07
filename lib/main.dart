@@ -43,3 +43,16 @@ class _TaskListScreenState extends State<TaskListScreen> {
       _taskController.clear();
     }
   }
+   // Method to mark a task as completed
+  void _toggleTaskCompletion(int index) {
+    setState(() {
+      _tasks[index].isCompleted = !_tasks[index].isCompleted;
+    });
+  }
+
+  // Method to delete a task from the list
+  void _deleteTask(int index) {
+    setState(() {
+      _tasks.removeAt(index);
+    });
+  }
