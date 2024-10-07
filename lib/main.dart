@@ -18,3 +18,28 @@ class TaskManagerApp extends StatelessWidget {
     );
   }
 }
+class Task {
+  String name;
+  bool isCompleted;
+
+  Task({required this.name, this.isCompleted = false});
+}
+
+class TaskListScreen extends StatefulWidget {
+  @override
+  _TaskListScreenState createState() => _TaskListScreenState();
+}
+
+class _TaskListScreenState extends State<TaskListScreen> {
+  final List<Task> _tasks = [];
+  final TextEditingController _taskController = TextEditingController();
+
+  // Method to add a new task to the list
+  void _addTask() {
+    if (_taskController.text.isNotEmpty) {
+      setState(() {
+        _tasks.add(Task(name: _taskController.text));
+      });
+      _taskController.clear();
+    }
+  }
